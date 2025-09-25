@@ -1,0 +1,39 @@
+{
+  "name": "convex",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/convex/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/convex",
+        "main": "libs/convex/src/index.ts",
+        "tsConfig": "libs/convex/tsconfig.lib.json",
+        "assets": ["libs/convex/*.md"]
+      }
+    },
+    "dev": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": ".",
+        "command": "pnpm exec convex dev"
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": ".",
+        "command": "pnpm exec convex deploy"
+      }
+    },
+    "functions:check": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm exec tsc -p libs/convex/src/lib/tsconfig.json --noEmit"
+      }
+    }
+  }
+}

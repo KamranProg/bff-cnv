@@ -44,3 +44,8 @@ Thumbs.db
 .github/instructions/nx.instructions.md
 
 .angular
+
+# Convex
+.env.local
+/libs/convex/src/lib/_generated
+

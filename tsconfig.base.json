@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@bff-cnv/convex": ["libs/convex/src/index.ts"],
       "@bff-cnv/shared-types": ["libs/shared-types/src/index.ts"]
     }
   },

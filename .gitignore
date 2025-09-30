@@ -49,3 +49,8 @@ Thumbs.db
 .env.local
 /libs/convex/src/lib/_generated
 
+# BFF
+secrets/
+.env
+
+

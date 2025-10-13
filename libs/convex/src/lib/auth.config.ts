@@ -2,9 +2,9 @@ export default {
   providers: [
     {
       type: 'customJwt',
-      applicationID: 'bff-cnv-app',
-      issuer: process.env['BFF_URL'] ?? 'http://localhost:3000',
-      jwks: (process.env['BFF_URL'] ?? 'http://localhost:3000') + '/.well-known/jwks.json',
+      applicationID: process.env['CONVEX_APP_ID'] ?? 'bff-cnv-app',
+      issuer: process.env['BFF_PUBLIC_URL'] ?? 'https://bff-cnv-ng-bff-3000.<region>.devtunnels.ms',
+      jwks: (process.env['BFF_PUBLIC_URL'] ?? 'https://bff-cnv-ng-bff-3000.<region>.devtunnels.ms') + '/.well-known/jwks.json',
       algorithm: 'RS256',
     },
   ],

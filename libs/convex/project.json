@@ -5,6 +5,13 @@
   "projectType": "library",
   "tags": [],
   "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "format": "stylish",
+        "lintFilePatterns": ["libs/convex/**/*.ts", "libs/convex/**/*.json"]
+      }
+    },
     "build": {
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
@@ -33,6 +40,12 @@
       "executor": "nx:run-commands",
       "options": {
         "command": "pnpm exec tsc -p libs/convex/src/lib/tsconfig.json --noEmit"
+      }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p libs/convex/tsconfig.typecheck.json --noEmit"
       }
     }
   }

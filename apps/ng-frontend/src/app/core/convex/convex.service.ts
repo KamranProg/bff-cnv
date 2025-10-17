@@ -13,7 +13,8 @@ export class ConvexService {
     if (this.authInitialized) return;
     this.authInitialized = true;
 
-    const endpoint = environment.NG_APP_CONVEX_TOKEN_ENDPOINT ?? '/api/convex-token';
+    const endpoint =
+      environment.NG_APP_CONVEX_TOKEN_ENDPOINT ?? '/api/convex-token';
 
     const fetchTokenOnce = async (): Promise<string | null> => {
       const res = await fetch(endpoint, { credentials: 'include' });

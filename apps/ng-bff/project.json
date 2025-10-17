@@ -80,6 +80,24 @@
         }
       }
     },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "format": "stylish",
+        "lintFilePatterns": [
+          "apps/ng-bff/**/*.ts",
+          "apps/ng-bff/**/*.js",
+          "apps/ng-bff/**/*.mjs",
+          "apps/ng-bff/**/*.cjs"
+        ]
+      }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p apps/ng-bff/tsconfig.typecheck.json --noEmit"
+      }
+    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],

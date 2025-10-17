@@ -33,7 +33,8 @@ export class AuthStore {
     effect(() => {
       if (this.isLoggedIn() && !this.ensuredOnce()) {
         this.convex.initAuth(); // sets setAuth(() => GET /api/convex-token)
-        this.convex.ensureCurrentUser()
+        this.convex
+          .ensureCurrentUser()
           .finally(() => this.ensuredOnce.set(true));
       }
     });

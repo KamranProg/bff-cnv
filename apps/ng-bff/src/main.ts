@@ -17,5 +17,7 @@ app.use(routes);
 
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;
 app.listen(port, () => {
-  console.log(`BFF listening on http://localhost:${port} (cookies Secure=${COOKIE_SECURE})`);
+  console.log(
+    `BFF listening on http://localhost:${port} (cookies Secure=${COOKIE_SECURE})`
+  );
 });

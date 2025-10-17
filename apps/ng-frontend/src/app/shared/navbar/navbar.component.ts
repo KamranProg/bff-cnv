@@ -7,16 +7,16 @@ import { AuthStore } from '../../core/auth/auth.store';
   template: `
     <nav class="navbar">
       @if (!isLoggedIn()) {
-        <button
-          (click)="auth.login()"
-          [disabled]="auth.authRedirecting()"
-          [attr.aria-busy]="auth.authRedirecting() ? 'true' : null"
-        >
-          {{ auth.authRedirecting() ? 'Loading…' : 'Login' }}
-        </button>
+      <button
+        (click)="auth.login()"
+        [disabled]="auth.authRedirecting()"
+        [attr.aria-busy]="auth.authRedirecting() ? 'true' : null"
+      >
+        {{ auth.authRedirecting() ? 'Loading…' : 'Login' }}
+      </button>
       } @else {
-        <span>Hello, {{ auth.user()?.email }}</span>
-        <button (click)="auth.logout()">Logout</button>
+      <span>Hello, {{ auth.user()?.email }}</span>
+      <button (click)="auth.logout()">Logout</button>
       }
     </nav>
   `,

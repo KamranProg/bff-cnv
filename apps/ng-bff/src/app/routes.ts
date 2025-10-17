@@ -98,7 +98,7 @@ routes.get('/auth/callback', async (req: Request, res: Response) => {
   if (!code) return res.status(400).send('No code');
 
   try {
-    const { user, sealedSession } = await workos.userManagement.authenticateWithCode({
+    const { sealedSession } = await workos.userManagement.authenticateWithCode({
       clientId: WORKOS_CLIENT_ID,
       code,
       session: {
@@ -143,7 +143,8 @@ routes.get('/api/me', async (req: Request, res: Response) => {
   // If missing/invalid, try refresh (may update cookie)
   try {
     const refreshed = await session.refresh();
-    if (!refreshed.authenticated) return res.status(401).json({ error: 'unauthenticated' });
+    if (!refreshed.authenticated)
+      return res.status(401).json({ error: 'unauthenticated' });
 
     res.cookie('wos-session', refreshed.sealedSession, {
       httpOnly: true,
@@ -188,7 +189,7 @@ routes.post('/auth/logout', async (req: Request, res: Response) => {
 routes.get('/api/convex-token', async (req, res) => {
   const session = loadSealedSession(req);
 
-  const a = await session.authenticate();                     // A: AuthCookie* type
+  const a = await session.authenticate(); // A: AuthCookie* type
   if (a.authenticated) {
     const claims = buildClaimsFromWorkOSUser(a.user);
     const token = await mintConvexJwt(a.user.id, claims);
@@ -196,18 +197,21 @@ routes.get('/api/convex-token', async (req, res) => {
   }
 
   // Not authenticated → try refresh (different type!)
-  const r = await session.refresh();                          // B: RefreshSession* type
-  if (!r.authenticated) return res.status(401).json({ error: 'unauthenticated' });
+  const r = await session.refresh(); // B: RefreshSession* type
+  if (!r.authenticated)
+    return res.status(401).json({ error: 'unauthenticated' });
 
   res.cookie('wos-session', r.sealedSession, {
-    httpOnly: true, secure: COOKIE_SECURE, sameSite: COOKIE_SAMESITE, path: '/',
+    httpOnly: true,
+    secure: COOKIE_SECURE,
+    sameSite: COOKIE_SAMESITE,
+    path: '/',
   });
 
   const claims = buildClaimsFromWorkOSUser(r.user);
   const token = await mintConvexJwt(r.user.id, claims);
   return res.json({ token });
 });
-
 
 /**
  * GET /.well-known/jwks.json

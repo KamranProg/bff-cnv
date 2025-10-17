@@ -5,7 +5,10 @@ import path from 'path';
 /** Normalize PEM that might be provided with literal "\n" sequences */
 function normalizePem(input: string): string {
   let pem = input.trim();
-  if ((pem.startsWith('"') && pem.endsWith('"')) || (pem.startsWith("'") && pem.endsWith("'"))) {
+  if (
+    (pem.startsWith('"') && pem.endsWith('"')) ||
+    (pem.startsWith("'") && pem.endsWith("'"))
+  ) {
     pem = pem.slice(1, -1);
   }
   const looksMultiline = pem.includes('\n') || pem.includes('\r');
@@ -41,8 +44,9 @@ const EnvSchema = z
     // WorkOS
     WORKOS_API_KEY: z.string().min(1, 'WORKOS_API_KEY required'),
     WORKOS_CLIENT_ID: z.string().min(1, 'WORKOS_CLIENT_ID required'),
-    WORKOS_COOKIE_PASSWORD: z.string().min(32, 'WORKOS_COOKIE_PASSWORD must be >= 32 characters'),
-
+    WORKOS_COOKIE_PASSWORD: z
+      .string()
+      .min(32, 'WORKOS_COOKIE_PASSWORD must be >= 32 characters'),
   })
   .transform((e) => {
     const pemRaw =
@@ -64,7 +68,9 @@ const EnvSchema = z
 // Validate at startup; fail fast with a readable error
 const parsed = EnvSchema.safeParse(process.env);
 if (!parsed.success) {
-  const issues = parsed.error.issues.map((i) => `• ${i.path.join('.')}: ${i.message}`).join('\n');
+  const issues = parsed.error.issues
+    .map((i) => `• ${i.path.join('.')}: ${i.message}`)
+    .join('\n');
   throw new Error(`Invalid environment configuration:\n${issues}`);
 }
 
@@ -75,7 +81,6 @@ export const APP_URL = env.APP_URL;
 export const BFF_URL = env.BFF_URL;
 export const BFF_PUBLIC_URL = env.BFF_PUBLIC_URL ?? env.BFF_URL;
 
-
 export const COOKIE_SECURE = env.NODE_ENV === 'production';
 export const COOKIE_SAMESITE = env.COOKIE_SAMESITE;
 export const CSRF_COOKIE = 'XSRF-TOKEN';
@@ -85,7 +90,6 @@ export const JWT_ISSUER = BFF_PUBLIC_URL;
 export const JWT_EXPIRES_SECS = env.JWT_EXPIRES_SECS;
 export const JWT_PRIVATE_KEY_PEM = env.JWT_PRIVATE_KEY_PEM;
 export const CONVEX_APP_ID = env.CONVEX_APP_ID;
-
 
 export const WORKOS_API_KEY = env.WORKOS_API_KEY;
 export const WORKOS_CLIENT_ID = env.WORKOS_CLIENT_ID;

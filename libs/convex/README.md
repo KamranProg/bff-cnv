@@ -6,8 +6,7 @@ This library was generated with [Nx](https://nx.dev).
 
 Run `nx build convex` to build the library.
 
-
-## project.json 
+## project.json
 
 ```
 "targets": {
@@ -65,4 +64,4 @@ Run `nx build convex` to build the library.
       }
     }
   }
-  ```
+```

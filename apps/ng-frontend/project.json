@@ -15,26 +15,21 @@
         "polyfills": ["zone.js"],
         "tsConfig": "apps/ng-frontend/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": [
-          {
-            "glob": "**/*",
-            "input": "apps/ng-frontend/public"
-          }
-        ],
+        "assets": [{ "glob": "**/*", "input": "apps/ng-frontend/public" }],
         "styles": ["apps/ng-frontend/src/styles.scss"]
       },
       "configurations": {
         "production": {
           "budgets": [
             {
-               "type": "initial",
-               "maximumWarning": "500kb",
-               "maximumError": "1mb"
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
             },
             {
-               "type": "anyComponentStyle",
-               "maximumWarning": "4kb",
-               "maximumError": "8kb"
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
             }
           ],
           "outputHashing": "all",
@@ -60,9 +55,7 @@
         "proxyConfig": "proxy.conf.json"
       },
       "configurations": {
-        "production": {
-          "buildTarget": "ng-frontend:build:production"
-        },
+        "production": { "buildTarget": "ng-frontend:build:production" },
         "development": {
           "buildTarget": "ng-frontend:build:development",
           "proxyConfig": "proxy.conf.json"
@@ -72,9 +65,7 @@
     },
     "extract-i18n": {
       "executor": "@angular/build:extract-i18n",
-      "options": {
-        "buildTarget": "ng-frontend:build"
-      }
+      "options": { "buildTarget": "ng-frontend:build" }
     },
     "lint": {
       "executor": "@nx/eslint:lint"
@@ -95,6 +86,12 @@
         "port": 4200,
         "staticFilePath": "dist/apps/ng-frontend/browser",
         "spa": true
+      }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p apps/ng-frontend/tsconfig.typecheck.json --noEmit"
       }
     }
   }

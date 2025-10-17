@@ -2,6 +2,7 @@ import baseConfig from '../../eslint.config.mjs';
 
 export default [
   ...baseConfig,
+  { ignores: ['**/_generated/**'] },
   {
     files: ['**/*.json'],
     rules: {

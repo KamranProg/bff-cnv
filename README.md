@@ -1,38 +1,127 @@
-# BffCnv
+# bff-cnv
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+A modern full-stack monorepo featuring an Angular 20 frontend, Express BFF (Backend-For-Frontend), and Convex backend with WorkOS authentication. This project demonstrates a secure architecture pattern where the Angular app communicates through a BFF layer that handles authentication, session management, and proxies requests to the Convex backend.
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+## Project Overview
 
-## Finish your CI setup
+This Nx monorepo implements a three-tier architecture:
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/GFVZnlA54u)
+- **Angular Frontend**: Modern Angular 20 SPA with Angular Material MD3 components, Tailwind CSS, Reactive Forms (transitioning to Signal Forms in Angular 21), and Signals
+- **Express BFF**: Backend-For-Frontend layer handling JWT validation, JWKS, CSRF protection, OIDC callbacks, and sealed session management with WorkOS AuthKit
+- **Convex Backend**: Real-time database and backend functions with JWT-based authentication
 
-## Run tasks
+## Monorepo Structure
 
-To run the dev server for your app, use:
-
-```sh
-npx nx serve ng-frontend
+```
+apps/
+  ng-frontend/        # Angular 20 app (Angular Material MD3, Tailwind, Reactive/Signal Forms)
+  ng-frontend-e2e/    # UI e2e Playwright tests
+  ng-bff/             # Express BFF (JWT, JWKS, CSRF, OIDC callbacks)
+libs/
+  convex/             # Convex functions and schema
+  shared-types/       # Shared TypeScript types, DTOs, and enums
 ```
 
-To create a production bundle:
+## Getting Started
+
+### Prerequisites
+
+- Node.js (see `.nvmrc` for version)
+- pnpm package manager
+- devtunnel CLI (for local OIDC development)
+
+### Run the App Locally
+
+Start all three services in separate terminals:
+
+**1. Angular Frontend**
 
 ```sh
-npx nx build ng-frontend
+pnpm nx serve ng-frontend
 ```
 
-To see all available targets to run for a project, run:
+Access at: `http://localhost:4200`
+
+**2. Express BFF**
+
+```sh
+pnpm nx serve ng-bff
+```
+
+Running at: `http://localhost:3000`
+
+**3. Convex Backend**
+
+```sh
+pnpm nx run convex:dev
+```
+
+**4. Create and host a dev tunnel using [devtunnel cli](https://learn.microsoft.com/en-us/azure/developer/dev-tunnels/get-started?tabs=macos) (for OIDC callback)**
+
+```sh
+devtunnel host bff-cnv-ng-bff
+```
+
+This creates a public tunnel to your local BFF for WorkOS authentication callbacks.
+
+### Before Committing
+
+Always run these checks before committing:
+
+```sh
+# Check formatting
+pnpm format:check
+
+# Auto-fix formatting
+pnpm format
+
+# Lint all projects
+pnpm lint
+
+# Type check all projects
+pnpm typecheck
+```
+
+## Run Tasks
+
+View project details:
 
 ```sh
 npx nx show project ng-frontend
+npx nx show project ng-bff
+npx nx show project convex
+```
+
+Run tasks across the monorepo:
+
+```sh
+# Run specific task
+npx nx run <project>:<target>
+
+# Run task for affected projects
+npx nx affected -t build
+
+# Run task for all projects
+npx nx run-many -t test
 ```
 
 These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
 
 [More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+
+## Architecture Highlights
+
+- **Authentication Flow**: WorkOS AuthKit → BFF (sealed session) → Convex (JWT)
+- **Security**: CSRF protection, JWT validation, JWKS rotation, secure session cookies
+- **Modern Stack**: Angular 20 with Signals, Angular Material components using MD3, TypeScript strict mode
+- **Type Safety**: Shared types library ensures consistency across frontend and backend
+- **DevTunnel Integration**: Enables local OIDC development with public callback URLs
+
+## Finish your CI setup
+
+[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/GFVZnlA54u)
 
 ## Add new projects
 

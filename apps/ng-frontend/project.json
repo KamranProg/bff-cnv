@@ -16,6 +16,9 @@
         "tsConfig": "apps/ng-frontend/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [{ "glob": "**/*", "input": "apps/ng-frontend/public" }],
+        "stylePreprocessorOptions": {
+          "includePaths": ["apps/ng-frontend/src/styles"]
+        },
         "styles": ["apps/ng-frontend/src/styles.scss"]
       },
       "configurations": {

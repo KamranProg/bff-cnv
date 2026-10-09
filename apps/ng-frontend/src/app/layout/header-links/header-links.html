@@ -1,0 +1,12 @@
+<nav class="flex items-center gap-2">
+  @for (link of links(); track link.text) {
+  <a
+    matButton
+    [routerLink]="link.path"
+    [routerLinkActive]="'active-link'"
+    class="text-md font-medium"
+  >
+    {{ link.text | titlecase }}
+  </a>
+  }
+</nav>

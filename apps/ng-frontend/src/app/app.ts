@@ -1,23 +1,12 @@
-import { Component, inject } from '@angular/core';
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NavbarComponent } from './shared/navbar/navbar.component';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { Header } from './layout/header/header';
 
 @Component({
-  imports: [RouterOutlet, NavbarComponent],
+  imports: [RouterOutlet, Header],
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.scss',
+  host: { class: 'flex flex-col h-full' },
 })
-export class App {
-  protected title = 'Welcome to ng-frontend! 🚀';
-  router = inject(Router);
-
-  constructor() {
-    this.router.events.pipe(takeUntilDestroyed()).subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        console.log('NavigationEnd:', event);
-      }
-    });
-  }
-}
+export class App {}

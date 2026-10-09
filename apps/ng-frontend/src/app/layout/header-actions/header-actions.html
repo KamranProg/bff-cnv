@@ -1,0 +1,54 @@
+<div class="flex items-center">
+  @if (!isLoggedIn()) {
+  <button
+    matButton="filled"
+    color="primary"
+    (click)="auth.login()"
+    [disabled]="auth.authRedirecting()"
+    [attr.aria-busy]="auth.authRedirecting() ? 'true' : null"
+  >
+    <span class="inline-flex items-center gap-2 w-full">
+      <span>Sign in</span>
+      <!-- Don't wrap spinner in <mat-icon>; place it directly -->
+      @if (auth.authRedirecting()) {
+      <mat-progress-spinner
+        mode="indeterminate"
+        diameter="16"
+        strokeWidth="2"
+      />
+      }
+    </span>
+  </button>
+  } @else {
+  <button
+    matIconButton
+    [matMenuTriggerFor]="userMenu"
+    [attr.aria-label]="'Account menu for ' + auth.displayName()"
+  >
+    @if (auth.avatarUrl(); as avatarUrl) {
+    <img
+      [src]="avatarUrl"
+      [alt]="auth.displayName()"
+      class="w-8 h-8 rounded-full"
+      referrerpolicy="no-referrer"
+    />
+    } @else {
+    <mat-icon>account_circle</mat-icon>
+    }
+  </button>
+
+  <mat-menu #userMenu="matMenu" xPosition="before">
+    <div class="flex flex-col px-3 py-2 min-w-[200px]">
+      <span class="text-sm font-medium">{{ auth.displayName() }}</span>
+      <span class="text-xs text-gray-500">{{ auth.user()?.email }}</span>
+    </div>
+    <mat-divider />
+    <button mat-menu-item routerLink="/dashboard/profile">
+      <mat-icon>person</mat-icon> Profile
+    </button>
+    <button mat-menu-item (click)="auth.logout()">
+      <mat-icon>logout</mat-icon> Sign out
+    </button>
+  </mat-menu>
+  }
+</div>

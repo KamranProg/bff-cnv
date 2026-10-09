@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ConvexClient } from 'convex/browser';
 import { api } from '@bff-cnv/convex';
+import type { FunctionReturnType } from 'convex/server';
 import { environment } from '../../../environments/environment';
+
+export type CurrentUser = FunctionReturnType<typeof api.users.getCurrent>;
 
 @Injectable({ providedIn: 'root' })
 export class ConvexService {
@@ -40,6 +43,11 @@ export class ConvexService {
 
   ensureCurrentUser() {
     return this.client.mutation(api.users.ensureCurrentUser, {});
+  }
+
+  /** Live subscription to the current user's Convex row; returns unsubscribe */
+  onCurrentUser(callback: (user: CurrentUser) => void): () => void {
+    return this.client.onUpdate(api.users.getCurrent, {}, callback);
   }
 
   get convex() {

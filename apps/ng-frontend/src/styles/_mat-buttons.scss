@@ -1,0 +1,64 @@
+@use '@angular/material' as mat;
+
+@mixin go() {
+  button[matButton] {
+    @include mat.button-overrides(
+      (
+        filled-container-shape: 6px,
+        outlined-container-shape: 6px,
+        text-container-shape: 6px,
+        protected-container-shape: 6px,
+        tonal-container-shape: 6px,
+        filled-horizontal-padding: 12px,
+        outlined-horizontal-padding: 12px,
+        text-horizontal-padding: 12px,
+        protected-horizontal-padding: 12px,
+        tonal-horizontal-padding: 12px,
+        filled-icon-spacing: 0px,
+        filled-icon-offset: 1px,
+        filled-container-height: 36px,
+        outlined-container-height: 36px,
+        text-container-height: 36px,
+        protected-container-height: 36px,
+        tonal-container-height: 36px,
+      )
+    );
+  }
+
+  button[matButton='outlined'].danger {
+    @include mat.button-overrides(
+      (
+        outlined-label-text-color: var(--mat-sys-error),
+        outlined-outline-color: var(--mat-sys-error),
+        outlined-state-layer-color: var(--mat-sys-error),
+      )
+    );
+  }
+
+  button[matIconButton] {
+    @include mat.icon-button-overrides(
+      (
+        container-shape: 6px,
+      )
+    );
+  }
+
+  button[matIconButton].danger {
+    @include mat.icon-button-overrides(
+      (
+        icon-color: var(--mat-sys-error),
+        state-layer-color: var(--mat-sys-error),
+      )
+    );
+  }
+
+  button[matIconButton].small {
+    @include mat.icon-button-overrides(
+      (
+        icon-size: 24px,
+        touch-target-size: 28px,
+        state-layer-size: 28px,
+      )
+    );
+  }
+}

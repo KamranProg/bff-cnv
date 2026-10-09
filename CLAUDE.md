@@ -2,6 +2,21 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## **CRITICAL: Documentation-First Approach**
+
+**Before generating, modifying, or refactoring ANY code in this repository, you MUST:**
+
+1. **Check the `/docs` directory** for relevant documentation files
+2. **Read and understand** the applicable documentation thoroughly
+3. **Follow the patterns, conventions, and guidelines** specified in those docs
+4. **Refer back to the docs** when making implementation decisions
+
+**Available documentation:**
+- `/docs/ui.md` - UI components, patterns, and frontend architecture guidelines
+- *(Additional docs may be added over time - always check the `/docs` directory first)*
+
+This is **non-negotiable**: all code generation must be informed by the project's documentation. Do not rely solely on general knowledge or assumptions. The `/docs` directory contains project-specific patterns, decisions, and conventions that must be followed.
+
 <!-- nx configuration start-->
 <!-- Leave the start & end comments to automatically receive updates. -->
 
